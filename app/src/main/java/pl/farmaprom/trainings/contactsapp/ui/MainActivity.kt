@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import pl.farmaprom.trainings.contactsapp.ui.theme.ContactsAppTheme
+import java.lang.ArithmeticException
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,15 +27,62 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        val calculationContainer = CalculationContainer()
+        println("result == ${calculationContainer.calculate({a,b -> 
+            CalculationContainer.performDivision(6, 2)}, 6, 2)}")
 
+        val group = Group()
+
+        val students = listOf(Student("Jan", "Kowalski", true, "praca1"),
+            Student("Jan", "Niezbedny", true, "praca2"),
+            Student("Jakub", "Nowak", true, "praca3"),
+            Student("Andrzej", "Fajny", true, "praca4"),
+            Student("Henryk", "Kowalski", true),
+            Student("Jerzy", "Kowalski", true))
+
+        for(student in students){
+            group.addStudent(student)
+        }
+        group.printStudents()
     }
 }
 
 class CalculationContainer {
-    fun calculate(calculation: (Int, Int) -> Int, a: Int , b: Int) {
-
+    companion object {
+        var a: Int = 1
+        var b: Int = 5
+        fun performAdding(a: Int, b: Int) = a + b
+        fun  performDivision(a: Int, b: Int) = try{
+            (a / b)
+        } catch (e: ArithmeticException) {
+            println("do not divide by 0")
+        }
     }
+    fun calculate(calculation: (Int, Int) -> Any, a: Int, b: Int) = calculation.invoke(a,b)
 }
+
+data class Student(
+    val name: String = "",
+    val surname: String = "",
+    var isActive: Boolean = false,
+    var thesisName: String? = null
+)
+
+class Group {
+    private val students = mutableListOf<Student>()
+    fun addStudent(student: Student) = students.add(student)
+    fun printStudents () {
+        for(student in students){
+            println("student == ${student.name}, ${student.surname}, ${student.thesisName}")
+        }
+    }
+
+    fun List<Student>.getStudentsWithThesisName() = this
+        .filter{ it.thesisName.isNullOrBlank().not()}
+            .sortedBy { it.thesisName }
+}
+
+
 
 @Composable
 fun Greeting(name: String) {
