@@ -29,6 +29,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+class CalculationContainer
+
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
@@ -41,3 +43,5 @@ fun DefaultPreview() {
         Greeting("Android")
     }
 }
+
+
