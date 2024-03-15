@@ -26,10 +26,15 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
     }
 }
 
-class CalculationContainer
+class CalculationContainer {
+    fun calculate(calculation: (Int, Int) -> Int, a: Int , b: Int) {
+
+    }
+}
 
 @Composable
 fun Greeting(name: String) {
