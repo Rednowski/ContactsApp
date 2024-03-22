@@ -75,6 +75,7 @@ class Group {
         students.getStudentsWithThesisName().forEach { human ->
             human.thesisName?.let {
                 println("student == ${human.name}, ${human.surname}, ${it}")
+                //komentarz
             }
         }
     }
