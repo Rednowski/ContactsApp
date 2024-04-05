@@ -1,4 +1,4 @@
-package pl.farmaprom.trainings.contactsapp.ui.theme
+package pl.farmaprom.trainings.contactsapp.ui
 
 interface Movable {
     var density: Double

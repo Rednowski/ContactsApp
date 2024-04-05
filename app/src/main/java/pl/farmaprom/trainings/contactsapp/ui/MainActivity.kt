@@ -108,6 +108,10 @@ data class Student(
     var thesisName: String? = null
 )
 
+data class RecyclerData(
+    val name: String
+)
+
 
 class Group {
     private val students = mutableListOf<Student>()
